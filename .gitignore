@@ -1,0 +1,19 @@
+# Java / Maven
+backend/target/
+*.class
+.mvn/wrapper/maven-wrapper.jar
+backend/data/meddb*
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+.env
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+*.iml
+
+# Logs
+*.log
