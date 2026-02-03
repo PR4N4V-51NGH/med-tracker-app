@@ -2,24 +2,31 @@ package com.medtracker.controller;
 
 import com.medtracker.model.Medicine;
 import com.medtracker.service.MedicineService;
+import com.medtracker.service.PriceService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/medicines")
 @CrossOrigin(origins = "http://localhost:5173")
 public class MedicineController {
     private final MedicineService service;
+    private final PriceService priceService;
 
-    public MedicineController(MedicineService service) {
+    public MedicineController(MedicineService service, PriceService priceService) {
         this.service = service;
+        this.priceService = priceService;
     }
 
     @GetMapping
-    public List<Medicine> getInventory() {
+    public List<Medicine> getInventory(@RequestParam(required = false) Long familyMemberId) {
+        if (familyMemberId != null) {
+            return service.getMedicinesByFamilyMember(familyMemberId);
+        }
         return service.getAllMedicines();
     }
 
@@ -56,6 +63,11 @@ public class MedicineController {
     @PutMapping("/{id}/dose")
     public Medicine updateDose(@PathVariable Long id, @RequestBody DoseUpdate update) {
         return service.updateDose(id, update.getDose());
+    }
+
+    @GetMapping("/{id}/price")
+    public Map<String, String> getPrice(@PathVariable Long id, @RequestParam String name) {
+        return priceService.fetchPrices(name);
     }
 
     static class StockUpdate {

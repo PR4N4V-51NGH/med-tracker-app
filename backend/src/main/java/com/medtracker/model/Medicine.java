@@ -9,6 +9,9 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
+    private Long familyMemberId;
+    
     private String name;
     private double dosagePerDay;
     private int tabletsPerStrip;
@@ -27,6 +30,9 @@ public class Medicine {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
+    public Long getFamilyMemberId() { return familyMemberId; }
+    public void setFamilyMemberId(Long familyMemberId) { this.familyMemberId = familyMemberId; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
-@Component
+// @Component - Disabled for multi-user setup
 public class DataLoader implements CommandLineRunner {
 
     private final MedicineRepository repository;

@@ -1,60 +1,83 @@
-# 💊 MedTracker Full-Stack App
+# 💊 Med Tracker - Full Stack Medicine Inventory App
 
-A smart medicine inventory management system built with **Spring Boot** and **React**. This app helps track medicine stock, calculates daily dosages, and provides a "Suggested Order" list to ensure you never run out of essential prescriptions.
+A full-stack application to track medicine inventory, manage orders, and get AI-powered assistance.
 
 ## 🚀 Features
-* **Automatic Inventory Tracking:** Calculates "Days Remaining" based on current stock and daily dosage.
-* **Smart Suggestions:** Automatically calculates how many strips to order for a 30-day supply.
-* **Manual Override:** A "+1 Strip" button to log purchases even when not strictly required by the system.
-* **Urgency Highlighting:** Rows turn red when stock levels drop below a 7-day supply.
 
----
+- 📊 Real-time medicine stock tracking
+- 📅 Automatic order date calculation (9-day buffer)
+- ✏️ Editable stock and daily dose (click to edit)
+- ➕ Add/Remove pending strips
+- 🛒 Single-click order placement
+- 🤖 AI-powered medicine assistant (Google Gemini)
+- 🗑️ Add/Delete medicines
 
 ## 🛠️ Tech Stack
-* **Frontend:** React (Vite), Axios, CSS3
-* **Backend:** Java 21+, Spring Boot 3.x, Spring Data JPA
-* **Database:** H2 (File-based persistence)
-* **Utilities:** Lombok, Maven
 
----
+**Backend:**
+- Java 17
+- Spring Boot 3.2.0
+- H2 Database
+- Google Gemini AI API
 
-## ⚙️ Setup Instructions
+**Frontend:**
+- React 18
+- Vite
+- Axios
 
-### 1. Prerequisites
-* **JDK 21** or higher
-* **Node.js** (LTS version)
-* **Maven** (included in wrapper)
+## 📦 Setup Instructions
 
-### 2. Backend Setup
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
+### 1. Backend Setup
 
-Run the Spring Boot application:
+```bash
+cd backend
 
+# Get FREE Google Gemini API Key
+# Visit: https://makersuite.google.com/app/apikey
+# Copy your API key
 
-./mvnw spring-boot:run
-The server will start on http://localhost:8080. The database will automatically seed with the initial 13 medicines.
+# Add API key to application.properties
+# Replace YOUR_API_KEY_HERE with your actual key
 
-3. Frontend Setup
-Open a new terminal and navigate to the frontend folder:
+# Run backend
+mvn spring-boot:run
+```
 
+Backend runs on: `http://localhost:8080`
 
+### 2. Frontend Setup
+
+```bash
 cd frontend
-Install dependencies:
 
-
+# Install dependencies
 npm install
-Start the development server:
 
+# Run frontend
 npm run dev
-The UI will usually be available at http://localhost:5173 (or 5174)
+```
 
-Project Structure
-   MedTracker-App/
-├── backend/           # Spring Boot Project
-│   ├── src/main/java  # Java Logic (Model, Service, Controller)
-│   └── data/          # H2 Database storage file
-└── frontend/          # React Project (Vite)
-    ├── src/App.jsx    # Main Dashboard UI
-    └── src/main.jsx   # React Entry point
+Frontend runs on: `http://localhost:5173`
+
+## 🤖 AI Assistant
+
+Ask questions like:
+- "Which medicines need to be ordered?"
+- "How many days of MetXl 50 do I have left?"
+- "What's my current inventory status?"
+- "When should I order Nodosis?"
+
+## 📝 API Endpoints
+
+- `GET /api/medicines` - Get all medicines
+- `POST /api/medicines` - Add new medicine
+- `DELETE /api/medicines/{id}` - Delete medicine
+- `POST /api/medicines/{id}/add-strips` - Add pending strips
+- `POST /api/medicines/place-order` - Place order
+- `PUT /api/medicines/{id}/stock` - Update stock
+- `PUT /api/medicines/{id}/dose` - Update dose
+- `POST /api/ai/ask` - Ask AI assistant
+
+## 📄 License
+
+MIT License

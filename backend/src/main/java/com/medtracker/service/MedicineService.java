@@ -19,6 +19,10 @@ public class MedicineService {
         return repository.findAll();
     }
 
+    public List<Medicine> getMedicinesByFamilyMember(Long familyMemberId) {
+        return repository.findByFamilyMemberId(familyMemberId);
+    }
+
     public Medicine getMedicineById(Long id) {
         return repository.findById(id).orElse(null);
     }
