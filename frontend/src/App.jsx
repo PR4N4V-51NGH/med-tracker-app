@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './comp
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './components/ui/dropdown-menu';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './components/ui/hover-card';
 
-function App() {
+function App({ familyMemberId }) {
   const [medicines, setMedicines] = useState([]);
   const [editingStock, setEditingStock] = useState(null);
   const [editingDose, setEditingDose] = useState(null);
@@ -15,7 +15,10 @@ function App() {
 
   const fetchMeds = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/medicines');
+      const url = familyMemberId 
+        ? `http://localhost:8080/api/medicines?familyMemberId=${familyMemberId}`
+        : 'http://localhost:8080/api/medicines';
+      const response = await axios.get(url);
       setMedicines(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -25,7 +28,7 @@ function App() {
 
   useEffect(() => {
     fetchMeds();
-  }, []);
+  }, [familyMemberId]);
 
   const handleAddStrip = (id) => {
     setPendingOrders(prev => ({
@@ -90,8 +93,12 @@ function App() {
       alert("Please fill all fields!");
       return;
     }
+    if (!familyMemberId) {
+      alert("No family member selected!");
+      return;
+    }
     try {
-      await axios.post('http://localhost:8080/api/medicines', newMedicine);
+      await axios.post('http://localhost:8080/api/medicines', { ...newMedicine, familyMemberId });
       fetchMeds();
       setShowAddModal(false);
       setNewMedicine({ name: '', tabletsPerStrip: '', currentStock: '', dosagePerDay: '' });
